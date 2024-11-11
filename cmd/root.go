@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
+	"github.com/wallanaq/oidc-cli/cmd/auth"
 )
 
 var Verbose bool
@@ -25,4 +26,6 @@ var RootCmd = &cobra.Command{
 
 func init() {
 	RootCmd.PersistentFlags().BoolVarP(&Verbose, "verbose", "v", false, "verbose output")
+
+	RootCmd.AddCommand(auth.LoginCmd)
 }
