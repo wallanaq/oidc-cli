@@ -1,10 +1,10 @@
 package output
 
-func NewWriter(path string) (Writer, error) {
-	switch path {
+func NewWriter(output string) Writer {
+	switch output {
 	case "", "-":
-		return &ConsoleWriter{}, nil
+		return &ConsoleWriter{}
 	default:
-		return &FileWriter{Path: path}, nil
+		return &FileWriter{Path: output}
 	}
 }

@@ -55,10 +55,7 @@ func run(_ *cobra.Command, _ []string, flags *FetchFlags, opts *command.Options)
 		return fmt.Errorf("marshal error: %w", err)
 	}
 
-	writer, err := output.NewWriter(opts.Flags.Output)
-	if err != nil {
-		return fmt.Errorf("output writer error: %w", err)
-	}
+	writer := output.NewWriter(opts.Flags.Output)
 
 	return writer.Write(data)
 
