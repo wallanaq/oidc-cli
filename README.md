@@ -12,6 +12,4 @@ This tool simplifies common OIDC tasks such as fetching provider configurations,
 
 *   Fetch OIDC Configuration (`.well-known/openid-configuration`)
 *   Perform Authorization Code Flow, including PKCE
-*   Token Introspection (Check activity and metadata)
 *   Verify ID Token Signatures using JWKS
-*   Revoke Tokens
