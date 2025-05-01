@@ -12,7 +12,7 @@ type OIDCProviderImpl struct {
 	httpClient *http.Client
 }
 
-func (p *OIDCProviderImpl) FetchConfiguration(issuer string) (*ProviderConfiguration, error) {
+func (p *OIDCProviderImpl) FetchConfiguration(issuer string) (*OIDCProviderConfiguration, error) {
 
 	wellKnown := issuer + "/.well-known/openid-configuration"
 
@@ -27,7 +27,7 @@ func (p *OIDCProviderImpl) FetchConfiguration(issuer string) (*ProviderConfigura
 		return nil, fmt.Errorf("unexpected status code: %d", res.StatusCode)
 	}
 
-	var config ProviderConfiguration
+	var config OIDCProviderConfiguration
 
 	if err := json.NewDecoder(res.Body).Decode(&config); err != nil {
 		return nil, fmt.Errorf("failed to decode metadata: %w", err)

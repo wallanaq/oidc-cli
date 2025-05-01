@@ -1,6 +1,6 @@
 package output
 
-func NewOutputWriter(path string) (OutputWriter, error) {
+func NewWriter(path string) (Writer, error) {
 	switch path {
 	case "", "-":
 		return &ConsoleWriter{}, nil

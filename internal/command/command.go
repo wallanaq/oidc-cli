@@ -1,4 +1,4 @@
-package cli
+package command
 
 import (
 	"log"
@@ -12,7 +12,7 @@ type GlobalFlags struct {
 }
 
 type Options struct {
-	Flags        GlobalFlags
 	Logger       *log.Logger
+	Flags        GlobalFlags
 	OIDCProvider oidc.OIDCProvider
 }

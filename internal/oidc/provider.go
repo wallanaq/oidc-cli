@@ -6,24 +6,18 @@ import (
 )
 
 type OIDCProvider interface {
-	FetchConfiguration(issuer string) (*ProviderConfiguration, error)
+	FetchConfiguration(issuer string) (*OIDCProviderConfiguration, error)
 }
 
-type OIDCProviderConfig struct {
+type OIDCProviderOptions struct {
 	Context    context.Context
 	HttpClient *http.Client
 }
 
-func NewOIDCProvider(cfg *OIDCProviderConfig) OIDCProvider {
-	if cfg.HttpClient == nil {
-		cfg.HttpClient = &http.Client{}
-	}
-	if cfg.Context == nil {
-		cfg.Context = context.Background()
-	}
-
-	return &OIDCProviderImpl{
-		ctx:        cfg.Context,
-		httpClient: cfg.HttpClient,
-	}
+type OIDCProviderConfiguration struct {
+	Issuer                string `json:"issuer"`
+	AuthorizationEndpoint string `json:"authorization_endpoint"`
+	TokenEndpoint         string `json:"token_endpoint"`
+	UserinfoEndpoint      string `json:"userinfo_endpoint"`
+	JwksUri               string `json:"jwks_uri,omitempty"`
 }

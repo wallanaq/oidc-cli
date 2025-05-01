@@ -5,15 +5,15 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
-	"github.com/wallanaq/oidc-cli/internal/cli"
-	"github.com/wallanaq/oidc-cli/internal/cli/output"
+	"github.com/wallanaq/oidc-cli/internal/command"
+	"github.com/wallanaq/oidc-cli/internal/output"
 )
 
 type FetchFlags struct {
 	Issuer string
 }
 
-func NewFetchCommand(opts *cli.Options) *cobra.Command {
+func NewFetchCommand(opts *command.Options) *cobra.Command {
 
 	flags := &FetchFlags{}
 
@@ -42,7 +42,7 @@ func (f *FetchFlags) Bind(cmd *cobra.Command) {
 
 }
 
-func run(_ *cobra.Command, _ []string, flags *FetchFlags, opts *cli.Options) error {
+func run(_ *cobra.Command, _ []string, flags *FetchFlags, opts *command.Options) error {
 
 	provider := opts.OIDCProvider
 
@@ -56,7 +56,7 @@ func run(_ *cobra.Command, _ []string, flags *FetchFlags, opts *cli.Options) err
 		return fmt.Errorf("marshal error: %w", err)
 	}
 
-	writer, err := output.NewOutputWriter(opts.Flags.Output)
+	writer, err := output.NewWriter(opts.Flags.Output)
 	if err != nil {
 		return fmt.Errorf("output writer error: %w", err)
 	}

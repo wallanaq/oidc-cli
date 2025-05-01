@@ -1,5 +1,5 @@
 package output
 
-type OutputWriter interface {
+type Writer interface {
 	Write(data []byte) error
 }

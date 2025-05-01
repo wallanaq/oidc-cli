@@ -7,15 +7,15 @@ import (
 	"time"
 
 	"github.com/wallanaq/oidc-cli/cmd/root"
-	"github.com/wallanaq/oidc-cli/internal/cli"
+	"github.com/wallanaq/oidc-cli/internal/command"
 	"github.com/wallanaq/oidc-cli/internal/oidc"
 )
 
 func main() {
 
-	opts := &cli.Options{
+	opts := &command.Options{
 		Logger: log.New(os.Stdout, "[oidc-cli]", log.LstdFlags),
-		OIDCProvider: oidc.NewOIDCProvider(&oidc.OIDCProviderConfig{
+		OIDCProvider: oidc.NewOIDCProvider(&oidc.OIDCProviderOptions{
 			HttpClient: &http.Client{
 				Timeout: 5 * time.Second,
 			},

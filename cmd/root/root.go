@@ -6,10 +6,10 @@ import (
 
 	"github.com/spf13/cobra"
 	"github.com/wallanaq/oidc-cli/cmd/fetch"
-	"github.com/wallanaq/oidc-cli/internal/cli"
+	"github.com/wallanaq/oidc-cli/internal/command"
 )
 
-func NewRootCommand(opts *cli.Options) *cobra.Command {
+func NewRootCommand(opts *command.Options) *cobra.Command {
 
 	cmd := &cobra.Command{
 		Use:          "oidc",
