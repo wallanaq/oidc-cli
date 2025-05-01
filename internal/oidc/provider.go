@@ -2,6 +2,7 @@ package oidc
 
 import (
 	"context"
+	"encoding/json"
 	"net/http"
 )
 
@@ -20,4 +21,8 @@ type OIDCProviderConfiguration struct {
 	TokenEndpoint         string `json:"token_endpoint"`
 	UserinfoEndpoint      string `json:"userinfo_endpoint"`
 	JwksUri               string `json:"jwks_uri,omitempty"`
+}
+
+func (c *OIDCProviderConfiguration) MarshalPretty() ([]byte, error) {
+	return json.MarshalIndent(c, "", "  ")
 }

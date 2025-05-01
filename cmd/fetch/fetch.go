@@ -1,7 +1,6 @@
 package fetch
 
 import (
-	"encoding/json"
 	"fmt"
 
 	"github.com/spf13/cobra"
@@ -46,12 +45,12 @@ func run(_ *cobra.Command, _ []string, flags *FetchFlags, opts *command.Options)
 
 	provider := opts.OIDCProvider
 
-	meta, err := provider.FetchConfiguration(flags.Issuer)
+	oidcConfig, err := provider.FetchConfiguration(flags.Issuer)
 	if err != nil {
 		return fmt.Errorf("fetch error: %w", err)
 	}
 
-	data, err := json.MarshalIndent(meta, "", "  ")
+	data, err := oidcConfig.MarshalPretty()
 	if err != nil {
 		return fmt.Errorf("marshal error: %w", err)
 	}
