@@ -22,19 +22,22 @@ func NewRootCommand(opts *cli.Options) *cobra.Command {
 		Version:      "v0.1.0",
 		SilenceUsage: true,
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
+			logger := opts.Logger
 			if opts.GlobalFlags.Verbose {
-				opts.Logger.SetOutput(os.Stderr)
-				opts.Logger.Println("Verbose logging enabled")
+				logger.SetOutput(os.Stderr)
+				logger.Println("Verbose logging enabled")
 			} else {
-				opts.Logger.SetOutput(io.Discard)
+				logger.SetOutput(io.Discard)
 			}
 		},
 	}
 
 	flags := rootCmd.PersistentFlags()
 
-	flags.BoolVarP(&opts.GlobalFlags.Verbose, "verbose", "v", false, "enable verbose output")
-	flags.StringVarP(&opts.GlobalFlags.Output, "output", "o", "-", "write file(s) to directory, instead of STDOUT")
+	globalFlags := &opts.GlobalFlags
+
+	flags.BoolVarP(&globalFlags.Verbose, "verbose", "v", false, "enable verbose output")
+	flags.StringVarP(&globalFlags.Output, "output", "o", "-", "write file(s) to directory, instead of STDOUT")
 
 	rootCmd.CompletionOptions.DisableDefaultCmd = true
 
