@@ -3,6 +3,7 @@ package oidc
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"net/http"
 )
 
@@ -10,19 +11,32 @@ type OIDCProvider interface {
 	FetchConfiguration(issuer string) (*OIDCProviderConfiguration, error)
 }
 
-type OIDCProviderOptions struct {
-	Context    context.Context
-	HttpClient *http.Client
+type OIDCProviderImpl struct {
+	ctx        context.Context
+	httpClient *http.Client
 }
 
-type OIDCProviderConfiguration struct {
-	Issuer                string `json:"issuer"`
-	AuthorizationEndpoint string `json:"authorization_endpoint"`
-	TokenEndpoint         string `json:"token_endpoint"`
-	UserinfoEndpoint      string `json:"userinfo_endpoint"`
-	JwksUri               string `json:"jwks_uri,omitempty"`
-}
+func (p *OIDCProviderImpl) FetchConfiguration(issuer string) (*OIDCProviderConfiguration, error) {
 
-func (c *OIDCProviderConfiguration) MarshalPretty() ([]byte, error) {
-	return json.MarshalIndent(c, "", "  ")
+	wellKnown := issuer + "/.well-known/openid-configuration"
+
+	res, err := p.httpClient.Get(wellKnown)
+	if err != nil {
+		return nil, fmt.Errorf("failed to fetch configuration: %w", err)
+	}
+
+	defer res.Body.Close()
+
+	if res.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("unexpected status code: %d", res.StatusCode)
+	}
+
+	var config OIDCProviderConfiguration
+
+	if err := json.NewDecoder(res.Body).Decode(&config); err != nil {
+		return nil, fmt.Errorf("failed to decode metadata: %w", err)
+	}
+
+	return &config, nil
+
 }

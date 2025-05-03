@@ -4,59 +4,48 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
-	"github.com/wallanaq/oidc-cli/internal/command"
+	"github.com/wallanaq/oidc-cli/internal/cli"
+	"github.com/wallanaq/oidc-cli/internal/oidc"
 	"github.com/wallanaq/oidc-cli/internal/output"
 )
 
-type FetchFlags struct {
-	Issuer string
-}
-
-func NewFetchCommand(opts *command.Options) *cobra.Command {
-
-	flags := &FetchFlags{}
+func NewFetchCommand(opts *cli.Options) *cobra.Command {
 
 	cmd := &cobra.Command{
-		Use:     "fetch",
+		Use:     "fetch [issuer]",
 		Short:   "Fetch the OpenID Connect configuration",
+		Example: "oidc fetch http://example.com/realms/master -o -",
 		GroupID: "oidc",
+		Args:    cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			return run(cmd, args, flags, opts)
+
+			issuer := &oidc.Issuer{
+				Value: args[0],
+			}
+
+			if err := issuer.Validate(); err != nil {
+				return fmt.Errorf("invalid issuer: %w", err)
+			}
+
+			provider := opts.OIDCProvider
+
+			oidcConfig, err := provider.FetchConfiguration(issuer.Value)
+			if err != nil {
+				return fmt.Errorf("fetch error: %w", err)
+			}
+
+			data, err := oidcConfig.MarshalPretty()
+			if err != nil {
+				return fmt.Errorf("marshal error: %w", err)
+			}
+
+			writer := output.NewWriter(opts.GlobalFlags.Output)
+
+			return writer.Write(data)
+
 		},
 	}
 
-	flags.Bind(cmd)
-
 	return cmd
-
-}
-
-func (f *FetchFlags) Bind(cmd *cobra.Command) {
-
-	flags := cmd.Flags()
-
-	flags.StringVarP(&f.Issuer, "issuer", "i", "", "Issuer")
-
-	cmd.MarkFlagRequired("issuer")
-
-}
-
-func run(_ *cobra.Command, _ []string, flags *FetchFlags, opts *command.Options) error {
-
-	provider := opts.OIDCProvider
-
-	oidcConfig, err := provider.FetchConfiguration(flags.Issuer)
-	if err != nil {
-		return fmt.Errorf("fetch error: %w", err)
-	}
-
-	data, err := oidcConfig.MarshalPretty()
-	if err != nil {
-		return fmt.Errorf("marshal error: %w", err)
-	}
-
-	writer := output.NewWriter(opts.Flags.Output)
-
-	return writer.Write(data)
 
 }

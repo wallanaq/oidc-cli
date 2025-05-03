@@ -7,13 +7,13 @@ import (
 	"time"
 
 	"github.com/wallanaq/oidc-cli/cmd/root"
-	"github.com/wallanaq/oidc-cli/internal/command"
+	"github.com/wallanaq/oidc-cli/internal/cli"
 	"github.com/wallanaq/oidc-cli/internal/oidc"
 )
 
 func main() {
 
-	opts := &command.Options{
+	opts := &cli.Options{
 		Logger: log.New(os.Stdout, "[oidc-cli]", log.LstdFlags),
 		OIDCProvider: oidc.NewOIDCProvider(&oidc.OIDCProviderOptions{
 			HttpClient: &http.Client{
@@ -22,9 +22,9 @@ func main() {
 		}),
 	}
 
-	command := root.NewRootCommand(opts)
+	rootCmd := root.NewRootCommand(opts)
 
-	if err := command.Execute(); err != nil {
+	if err := rootCmd.Execute(); err != nil {
 		os.Exit(1)
 	}
 

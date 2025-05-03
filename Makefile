@@ -1,4 +1,4 @@
-APP_NAME := oidc-cli
+APP_NAME := oidc
 BIN_DIR := bin
 BUILD_DIR := $(BIN_DIR)/$(APP_NAME)
 GO_FILES := $(shell find . -name '*.go' -type f)
@@ -13,7 +13,7 @@ build: $(BUILD_DIR)
 $(BUILD_DIR): $(GO_FILES)
 	@echo ">> Building $(APP_NAME)..."
 	@mkdir -p $(BIN_DIR)
-	go build -ldflags "$(LDFLAGS)" -o $(BUILD_DIR) ./cmd
+	go build -ldflags "$(LDFLAGS)" -o $(BUILD_DIR) ./cmd/oidc
 
 run: build
 	@$(BUILD_DIR)
