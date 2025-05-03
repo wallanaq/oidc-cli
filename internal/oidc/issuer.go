@@ -1,6 +1,8 @@
 package oidc
 
 import (
+	"crypto/sha256"
+	"encoding/hex"
 	"errors"
 	"fmt"
 	"net/url"
@@ -26,5 +28,13 @@ func (i Issuer) Validate() error {
 	// }
 
 	return nil
+
+}
+
+func (i Issuer) Hash() string {
+
+	sum := sha256.Sum256([]byte(i.Value))
+
+	return hex.EncodeToString(sum[:])
 
 }
