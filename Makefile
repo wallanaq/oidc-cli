@@ -1,11 +1,12 @@
-APP_NAME := oidc
-BIN_DIR := bin
-VERSION := v0.1.0
-BUILD_DIR := $(BIN_DIR)/$(APP_NAME)
-GO_FILES := $(shell find . -name '*.go' -type f)
+APP_NAME    := oidc
+BIN_DIR     := bin
+VERSION     := v0.1.0
+MODULE_NAME := github.com/wallanaq/oidc-cli
+BUILD_DIR   := $(BIN_DIR)/$(APP_NAME)
+GO_FILES    := $(shell find . -name '*.go' -type f)
 
 LDFLAGS :=
-LDFLAGS += -X github.com/wallanaq/oidc-cli/cmd/root.Version=$(VERSION)
+LDFLAGS += -X $(MODULE_NAME)/cmd/version.current=$(VERSION)
 
 .PHONY: all build clean run test
 

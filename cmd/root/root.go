@@ -6,10 +6,9 @@ import (
 
 	"github.com/spf13/cobra"
 	"github.com/wallanaq/oidc-cli/cmd/fetch"
+	"github.com/wallanaq/oidc-cli/cmd/version"
 	"github.com/wallanaq/oidc-cli/internal/cli"
 )
-
-var Version = "v0.0.0"
 
 func NewRootCommand(opts *cli.Options) *cobra.Command {
 
@@ -17,7 +16,7 @@ func NewRootCommand(opts *cli.Options) *cobra.Command {
 		Use:          "oidc",
 		Short:        "OIDC command-line tool",
 		Long:         "oidc-cli is a tool for performing OIDC operations.",
-		Version:      Version,
+		Version:      version.Get(),
 		SilenceUsage: true,
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
 			logger := opts.Logger
@@ -28,18 +27,21 @@ func NewRootCommand(opts *cli.Options) *cobra.Command {
 				logger.SetOutput(io.Discard)
 			}
 		},
+		RunE: func(cmd *cobra.Command, args []string) error {
+			return cmd.Help()
+		},
 	}
 
-	flags := rootCmd.PersistentFlags()
-
 	globalFlags := &opts.GlobalFlags
+
+	flags := rootCmd.PersistentFlags()
 
 	flags.BoolVarP(&globalFlags.Verbose, "verbose", "v", false, "enable verbose output")
 	flags.StringVarP(&globalFlags.Output, "output", "o", "-", "write file(s) to directory, instead of STDOUT")
 
 	rootCmd.CompletionOptions.DisableDefaultCmd = true
 
-	rootCmd.SetVersionTemplate("oidc-cli/{{.Version}}\n")
+	rootCmd.SetVersionTemplate(version.Template())
 
 	rootCmd.AddGroup(&cobra.Group{
 		ID:    "oidc",
