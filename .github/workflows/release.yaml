@@ -27,14 +27,14 @@ jobs:
       - name: Build binary
         run: |
           mkdir -p dist
-          GOOS=${{ matrix.goos }} GOARCH={{ matrix.goarch }} \
+          GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} \
           go build -ldflags="-s -w -X github.com/wallanaq/oidc-cli/cmd/version.current=${{ github.ref_name }}" \
-          -o dist/oidc-cli-${{ matrix.goos }}-{{ matrix.goarch }}.
+          -o dist/oidc-cli-${{ matrix.goos }}-${{ matrix.goarch }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: oidc-cli-${{ matrix.goos }}-{{ matrix.goarch }}
+          name: oidc-cli-${{ matrix.goos }}-${{ matrix.goarch }}
           path: dist/oidc-cli-*
 
       # - name: Archive binary
