@@ -9,9 +9,7 @@ import (
 	"github.com/wallanaq/oidc-cli/internal/cli"
 )
 
-const (
-	versionTemplate = "oidc-cli/{{.Version}}\n"
-)
+var Version = "v0.0.0"
 
 func NewRootCommand(opts *cli.Options) *cobra.Command {
 
@@ -19,7 +17,7 @@ func NewRootCommand(opts *cli.Options) *cobra.Command {
 		Use:          "oidc",
 		Short:        "OIDC command-line tool",
 		Long:         "oidc-cli is a tool for performing OIDC operations.",
-		Version:      "v0.1.0",
+		Version:      Version,
 		SilenceUsage: true,
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
 			logger := opts.Logger
@@ -41,7 +39,7 @@ func NewRootCommand(opts *cli.Options) *cobra.Command {
 
 	rootCmd.CompletionOptions.DisableDefaultCmd = true
 
-	rootCmd.SetVersionTemplate(versionTemplate)
+	rootCmd.SetVersionTemplate("oidc-cli/{{.Version}}\n")
 
 	rootCmd.AddGroup(&cobra.Group{
 		ID:    "oidc",
