@@ -26,6 +26,7 @@ go.work.sum
 
 # binary dir
 bin
+dist
 
 # vscode
 .vscode

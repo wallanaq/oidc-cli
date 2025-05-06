@@ -29,7 +29,7 @@ jobs:
           mkdir -p dist
           GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} \
           go build -ldflags="-s -w -X github.com/wallanaq/oidc-cli/cmd/version.current=${{ github.ref_name }}" \
-          -o dist/oidc-cli-${{ matrix.goos }}-${{ matrix.goarch }}
+          -o dist/oidc-cli-${{ matrix.goos }}-${{ matrix.goarch }} ./cmd/oidc
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
