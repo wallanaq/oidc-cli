@@ -1,14 +1,14 @@
-package version
+package root
 
 var (
 	current  string = "vX.Y.Z-build"
 	template string = "oidc-cli/{{.Version}}\n"
 )
 
-func Get() string {
+func GetVersion() string {
 	return current
 }
 
-func Template() string {
+func VersionTemplate() string {
 	return template
 }
