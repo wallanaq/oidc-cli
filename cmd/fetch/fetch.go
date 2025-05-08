@@ -5,7 +5,7 @@ import (
 
 	"github.com/spf13/cobra"
 	"github.com/wallanaq/oidc-cli/internal/cli"
-	"github.com/wallanaq/oidc-cli/internal/oidc"
+	"github.com/wallanaq/oidc-cli/internal/issuer"
 	"github.com/wallanaq/oidc-cli/internal/output"
 )
 
@@ -19,7 +19,7 @@ func NewFetchCommand(opts *cli.Options) *cobra.Command {
 		Args:    cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 
-			issuer := &oidc.Issuer{
+			issuer := &issuer.Issuer{
 				Value: args[0],
 			}
 
