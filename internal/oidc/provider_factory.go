@@ -5,12 +5,12 @@ import (
 	"net/http"
 )
 
-type OIDCProviderOptions struct {
+type ProviderOptions struct {
 	Context    context.Context
 	HttpClient *http.Client
 }
 
-func NewOIDCProvider(cfg *OIDCProviderOptions) OIDCProvider {
+func NewOIDCProvider(cfg *ProviderOptions) OIDCProvider {
 	if cfg.HttpClient == nil {
 		cfg.HttpClient = &http.Client{}
 	}
@@ -18,7 +18,7 @@ func NewOIDCProvider(cfg *OIDCProviderOptions) OIDCProvider {
 		cfg.Context = context.Background()
 	}
 
-	return &OIDCProviderImpl{
+	return &oidcProviderImpl{
 		ctx:        cfg.Context,
 		httpClient: cfg.HttpClient,
 	}

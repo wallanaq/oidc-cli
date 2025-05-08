@@ -2,7 +2,7 @@ package oidc
 
 import "encoding/json"
 
-type OIDCProviderConfiguration struct {
+type ProviderConfiguration struct {
 	Issuer                string `json:"issuer"`
 	AuthorizationEndpoint string `json:"authorization_endpoint"`
 	TokenEndpoint         string `json:"token_endpoint"`
@@ -10,6 +10,6 @@ type OIDCProviderConfiguration struct {
 	JwksUri               string `json:"jwks_uri,omitempty"`
 }
 
-func (c *OIDCProviderConfiguration) MarshalPretty() ([]byte, error) {
+func (c *ProviderConfiguration) MarshalPretty() ([]byte, error) {
 	return json.MarshalIndent(c, "", "  ")
 }
