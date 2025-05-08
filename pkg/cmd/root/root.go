@@ -5,9 +5,9 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
-	"github.com/wallanaq/oidc-cli/cmd/fetch"
-	"github.com/wallanaq/oidc-cli/cmd/version"
 	"github.com/wallanaq/oidc-cli/internal/cli"
+	"github.com/wallanaq/oidc-cli/pkg/cmd/fetch"
+	"github.com/wallanaq/oidc-cli/pkg/cmd/version"
 )
 
 func NewRootCommand(opts *cli.Options) *cobra.Command {

@@ -6,9 +6,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/wallanaq/oidc-cli/cmd/root"
 	"github.com/wallanaq/oidc-cli/internal/cli"
 	"github.com/wallanaq/oidc-cli/internal/oidc"
+	"github.com/wallanaq/oidc-cli/pkg/cmd/root"
 )
 
 func main() {
