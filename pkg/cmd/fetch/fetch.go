@@ -27,9 +27,9 @@ func NewFetchCommand(opts *cli.Options) *cobra.Command {
 				return fmt.Errorf("invalid issuer: %w", err)
 			}
 
-			provider := opts.OIDCProvider
+			oidcClient := opts.OIDCClient
 
-			oidcConfig, err := provider.FetchConfiguration(issuer.Value)
+			oidcConfig, err := oidcClient.FetchConfiguration(issuer.Value)
 			if err != nil {
 				return fmt.Errorf("fetch error: %w", err)
 			}

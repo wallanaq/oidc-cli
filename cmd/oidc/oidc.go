@@ -15,9 +15,9 @@ func main() {
 
 	opts := &cli.Options{
 		Logger: log.New(os.Stdout, "[oidc-cli]", log.LstdFlags),
-		OIDCProvider: oidc.NewOIDCProvider(&oidc.ProviderOptions{
+		OIDCClient: oidc.NewClient(&oidc.ClientOptions{
 			HttpClient: &http.Client{
-				Timeout: 5 * time.Second,
+				Timeout: 3 * time.Second,
 			},
 		}),
 	}

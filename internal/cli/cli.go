@@ -12,7 +12,7 @@ type GlobalFlags struct {
 }
 
 type Options struct {
-	Logger       *log.Logger
-	GlobalFlags  GlobalFlags
-	OIDCProvider oidc.OIDCProvider
+	Logger      *log.Logger
+	GlobalFlags GlobalFlags
+	OIDCClient  oidc.Client
 }

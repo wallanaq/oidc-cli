@@ -7,16 +7,12 @@ import (
 	"net/http"
 )
 
-type OIDCProvider interface {
-	FetchConfiguration(issuer string) (*ProviderConfiguration, error)
-}
-
-type oidcProviderImpl struct {
+type defaultClient struct {
 	ctx        context.Context
 	httpClient *http.Client
 }
 
-func (p *oidcProviderImpl) FetchConfiguration(issuer string) (*ProviderConfiguration, error) {
+func (p *defaultClient) FetchConfiguration(issuer string) (*ProviderConfiguration, error) {
 
 	wellKnown := issuer + "/.well-known/openid-configuration"
 
