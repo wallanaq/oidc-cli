@@ -10,16 +10,16 @@ type ProviderOptions struct {
 	HttpClient *http.Client
 }
 
-func NewOIDCProvider(cfg *ProviderOptions) OIDCProvider {
-	if cfg.HttpClient == nil {
-		cfg.HttpClient = &http.Client{}
+func NewOIDCProvider(opts *ProviderOptions) OIDCProvider {
+	if opts.HttpClient == nil {
+		opts.HttpClient = &http.Client{}
 	}
-	if cfg.Context == nil {
-		cfg.Context = context.Background()
+	if opts.Context == nil {
+		opts.Context = context.Background()
 	}
 
 	return &oidcProviderImpl{
-		ctx:        cfg.Context,
-		httpClient: cfg.HttpClient,
+		ctx:        opts.Context,
+		httpClient: opts.HttpClient,
 	}
 }
