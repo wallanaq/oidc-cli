@@ -1,17 +1,21 @@
 package config
 
-import "github.com/spf13/cobra"
+import (
+	"fmt"
+
+	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
+)
 
 func NewGetCmd() *cobra.Command {
 
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "get",
 		Short: "Retrieves a configuration value",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			return nil
+		Args:  cobra.ExactArgs(1),
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println(viper.GetString(args[0]))
 		},
 	}
-
-	return cmd
 
 }

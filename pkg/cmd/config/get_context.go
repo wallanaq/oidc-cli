@@ -1,18 +1,21 @@
 package config
 
-import "github.com/spf13/cobra"
+import (
+	"fmt"
+
+	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
+)
 
 func NewGetContextCmd() *cobra.Command {
 
-	cmd := &cobra.Command{
+	return &cobra.Command{
 		Use:   "get-context",
 		Short: "Displays the current context",
 		Args:  cobra.NoArgs,
-		RunE: func(cmd *cobra.Command, args []string) error {
-			return nil
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println(viper.GetString("context"))
 		},
 	}
-
-	return cmd
 
 }
