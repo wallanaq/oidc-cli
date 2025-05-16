@@ -7,8 +7,8 @@ import (
 	"github.com/wallanaq/oidc-cli/pkg/cmd/auth"
 	"github.com/wallanaq/oidc-cli/pkg/cmd/config"
 	"github.com/wallanaq/oidc-cli/pkg/cmd/discovery"
+	"github.com/wallanaq/oidc-cli/pkg/cmd/jwt"
 	"github.com/wallanaq/oidc-cli/pkg/cmd/registration"
-	"github.com/wallanaq/oidc-cli/pkg/cmd/token"
 )
 
 var (
@@ -51,7 +51,7 @@ func NewRootCommand() *cobra.Command {
 		discovery.NewDiscoveryCmd(),
 		registration.NewRegistrationCmd(),
 		auth.NewAuthCommand(),
-		token.NewTokenCmd(),
+		jwt.NewTokenCmd(),
 		config.NewConfigCmd(),
 	)
 

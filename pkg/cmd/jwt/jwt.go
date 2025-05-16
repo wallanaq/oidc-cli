@@ -1,12 +1,12 @@
-package token
+package jwt
 
 import "github.com/spf13/cobra"
 
 func NewTokenCmd() *cobra.Command {
 
 	cmd := &cobra.Command{
-		Use:   "token",
-		Short: "Token Utilities",
+		Use:   "jwt",
+		Short: "JWT Utilities",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return cmd.Help()
 		},
