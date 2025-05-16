@@ -37,7 +37,7 @@ func Decode(token string) (*JWT, error) {
 		return nil, fmt.Errorf("failed to unmarshal payload: %w", err)
 	}
 
-	if err := json.Unmarshal(bPayload, &jwt.Claims); err != nil {
+	if err := json.Unmarshal(bPayload, &jwt.StardardClaims); err != nil {
 		return nil, fmt.Errorf("failed to unmarshal standard claims: %w", err)
 	}
 

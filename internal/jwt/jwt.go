@@ -5,11 +5,11 @@ import (
 )
 
 type JWT struct {
-	Raw       string
-	Claims    Claims
-	Header    map[string]any
-	Payload   map[string]any
-	signature []byte
+	Raw            string
+	Header         map[string]any
+	Payload        map[string]any
+	signature      []byte
+	StardardClaims Claims
 }
 
 func (j *JWT) MarshalJSON() ([]byte, error) {
