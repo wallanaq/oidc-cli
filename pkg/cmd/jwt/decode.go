@@ -4,7 +4,9 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 	"github.com/wallanaq/oidc-cli/internal/jwt"
+	"github.com/wallanaq/oidc-cli/internal/output"
 )
 
 func NewDecodeCmd() *cobra.Command {
@@ -15,17 +17,20 @@ func NewDecodeCmd() *cobra.Command {
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 
-			jwt, err := jwt.Decode(args[0])
+			decoded, err := jwt.Decode(args[0])
 			if err != nil {
 				return fmt.Errorf("failed to decode jwt: %w", err)
 			}
 
-			json, err := jwt.MarshalJSON()
+			json, err := decoded.MarshalJSON()
 			if err != nil {
 				return fmt.Errorf("failed to marshal jwt: %w", err)
 			}
 
-			fmt.Println(string(json))
+			outflag := viper.GetString("output")
+
+			writer := output.NewWriter(outflag)
+			writer.Write(json)
 
 			return nil
 

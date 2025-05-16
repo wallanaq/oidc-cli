@@ -4,6 +4,7 @@ import (
 	"log/slog"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 	"github.com/wallanaq/oidc-cli/pkg/cmd/auth"
 	"github.com/wallanaq/oidc-cli/pkg/cmd/config"
 	"github.com/wallanaq/oidc-cli/pkg/cmd/discovery"
@@ -18,7 +19,10 @@ var (
 
 func NewRootCommand() *cobra.Command {
 
-	var debug bool
+	var (
+		debug  bool
+		output string
+	)
 
 	rootCmd := &cobra.Command{
 		Use:          "oidc",
@@ -40,7 +44,9 @@ func NewRootCommand() *cobra.Command {
 
 	rootCmd.SetVersionTemplate(versionTemplate)
 
-	rootCmd.PersistentFlags().BoolVarP(&debug, "debug", "d", false, "enable debug logging")
+	rootCmd.PersistentFlags().BoolVarP(&debug, "debug", "d", false, "enable debug output")
+	rootCmd.PersistentFlags().StringVarP(&output, "output", "o", "-", "write file(s) to directory, instead of STDOUT")
+	viper.BindPFlag("output", rootCmd.PersistentFlags().Lookup("output"))
 
 	rootCmd.AddGroup(&cobra.Group{
 		ID:    "oidc",
