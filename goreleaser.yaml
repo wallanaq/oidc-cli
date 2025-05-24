@@ -1,0 +1,33 @@
+project_name: oidc-cli
+
+builds:
+  - id: oidc-cli
+    main: ./cmd/oidc/oidc.go
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w -X github.com/wallanaq/oidc-cli/internal/version.current={{.Version}}
+    binary: oidc
+
+archives:
+  - format: tar.gz
+    files:
+      - LICENSE
+      - README.md
+
+release:
+  github:
+    owner: wallanaq
+    name: oidc-cli
+
+changelog:
+  sort: desc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
