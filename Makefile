@@ -2,22 +2,26 @@ APP_NAME    := oidc
 BIN_DIR     := bin
 VERSION     := v0.1.0
 MODULE_NAME := github.com/wallanaq/oidc-cli
+INSTALL_DIR := /usr/local/bin/
 BUILD_DIR   := $(BIN_DIR)/$(APP_NAME)
 GO_FILES    := $(shell find . -name '*.go' -type f)
 
 LDFLAGS :=
-LDFLAGS += -X $(MODULE_NAME)/pkg/cmd/root.version=$(VERSION)
+LDFLAGS += -X $(MODULE_NAME)/pkg/cmd/version.version=$(VERSION)
+LDFLAGS += -X $(MODULE_NAME)/pkg/cmd/version.buildNumber=0
 
-.PHONY: all build clean run test
+all: build
 
-build: $(BUILD_DIR)
+build: clean $(BUILD_DIR)
 
 $(BUILD_DIR): $(GO_FILES)
 	@echo ">> Building $(APP_NAME)..."
 	@mkdir -p $(BIN_DIR)
 	go build -ldflags "$(LDFLAGS)" -o $(BUILD_DIR) ./cmd/oidccli
 
-all: build
+install: build
+	@echo ">> Installing $(APP_NAME)..."
+	@sudo mv $(BUILD_DIR) $(INSTALL_DIR)
 
 run: build
 	@$(BUILD_DIR)
@@ -28,3 +32,5 @@ test:
 clean:
 	@echo ">> Cleaning up..."
 	@rm -rf $(BIN_DIR)
+
+.PHONY: all build install clean run test

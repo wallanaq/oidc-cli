@@ -8,13 +8,8 @@ import (
 	"github.com/wallanaq/oidc-cli/pkg/cmd/auth"
 	"github.com/wallanaq/oidc-cli/pkg/cmd/config"
 	"github.com/wallanaq/oidc-cli/pkg/cmd/discovery"
-	"github.com/wallanaq/oidc-cli/pkg/cmd/jwt"
 	"github.com/wallanaq/oidc-cli/pkg/cmd/registration"
-)
-
-var (
-	version         string = "v0.0.0"
-	versionTemplate string = "oidc-cli version {{.Version}}\n"
+	"github.com/wallanaq/oidc-cli/pkg/cmd/version"
 )
 
 func NewRootCommand() *cobra.Command {
@@ -28,7 +23,6 @@ func NewRootCommand() *cobra.Command {
 		Use:          "oidc",
 		Short:        "OpenID Connect command-line tool",
 		Long:         "oidc-cli is a tool for performing Open ID Connect operations",
-		Version:      version,
 		SilenceUsage: true,
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
 			if debug {
@@ -42,9 +36,7 @@ func NewRootCommand() *cobra.Command {
 
 	rootCmd.CompletionOptions.DisableDefaultCmd = true
 
-	rootCmd.SetVersionTemplate(versionTemplate)
-
-	rootCmd.PersistentFlags().BoolVarP(&debug, "debug", "d", false, "enable debug output")
+	rootCmd.PersistentFlags().BoolVar(&debug, "debug", false, "enable debug output")
 	rootCmd.PersistentFlags().StringVarP(&output, "output", "o", "-", "write file(s) to directory, instead of STDOUT")
 	viper.BindPFlag("output", rootCmd.PersistentFlags().Lookup("output"))
 
@@ -54,10 +46,10 @@ func NewRootCommand() *cobra.Command {
 	})
 
 	rootCmd.AddCommand(
+		version.NewVersionCmd(),
 		discovery.NewDiscoveryCmd(),
 		registration.NewRegistrationCmd(),
 		auth.NewAuthCommand(),
-		jwt.NewTokenCmd(),
 		config.NewConfigCmd(),
 	)
 
