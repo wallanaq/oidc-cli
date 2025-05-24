@@ -2,7 +2,8 @@ project_name: oidc-cli
 
 builds:
   - id: oidc-cli
-    main: ./cmd/oidc/oidc.go
+    main: ./cmd/oidccli/main.go
+    binary: oidc
     goos:
       - linux
       - darwin
@@ -12,7 +13,6 @@ builds:
       - arm64
     ldflags:
       - -s -w -X github.com/wallanaq/oidc-cli/internal/version.current={{.Version}}
-    binary: oidc
 
 archives:
   - format: tar.gz
