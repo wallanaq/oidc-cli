@@ -1,6 +1,6 @@
 APP_NAME    := oidc
 BIN_DIR     := bin
-VERSION     := v0.1.0
+VERSION     := v0.2.0
 MODULE_NAME := github.com/wallanaq/oidc-cli
 INSTALL_DIR := /usr/local/bin/
 BUILD_DIR   := $(BIN_DIR)/$(APP_NAME)
