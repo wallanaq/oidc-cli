@@ -10,9 +10,10 @@ import (
 func NewGetCmd() *cobra.Command {
 
 	return &cobra.Command{
-		Use:   "get",
-		Short: "Retrieves a configuration value",
-		Args:  cobra.ExactArgs(1),
+		Use:     "get [key]",
+		Short:   "Gets the value of key from the CLI config file",
+		Example: "oidc config get foo",
+		Args:    cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
 			fmt.Println(viper.GetString(args[0]))
 		},

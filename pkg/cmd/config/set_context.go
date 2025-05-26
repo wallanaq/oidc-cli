@@ -11,9 +11,10 @@ import (
 func NewSetContextCmd() *cobra.Command {
 
 	return &cobra.Command{
-		Use:   "set-context [issuer]",
-		Short: "Sets the current issuer context",
-		Args:  cobra.ExactArgs(1),
+		Use:     "set-context [issuer]",
+		Short:   "Set the current context",
+		Example: "oidc config set-context https://issuer.com/realms/myrealm",
+		Args:    cobra.ExactArgs(1),
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if _, err := url.ParseRequestURI(args[0]); err != nil {
 				return fmt.Errorf("invalid issuer URL: %w", err)

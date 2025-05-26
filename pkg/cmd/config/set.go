@@ -8,9 +8,9 @@ import (
 func NewSetCmd() *cobra.Command {
 
 	return &cobra.Command{
-		Use:     "set",
-		Short:   "Sets global or context-specific configuration",
-		Example: "oidc config set [key] [value]",
+		Use:     "set [key] [value]",
+		Short:   "Sets an individual value in a CLI config file",
+		Example: "oidc config set foo bar",
 		Args:    cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			viper.Set(args[0], args[1])

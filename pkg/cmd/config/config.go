@@ -6,7 +6,7 @@ func NewConfigCmd() *cobra.Command {
 
 	cmd := &cobra.Command{
 		Use:   "config",
-		Short: "CLI Configuration & Contexts",
+		Short: "Modify persistent configuration values",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			return cmd.Help()
 		},
