@@ -9,6 +9,7 @@ import (
 	"github.com/wallanaq/oidc-cli/pkg/cmd/config"
 	"github.com/wallanaq/oidc-cli/pkg/cmd/discovery"
 	"github.com/wallanaq/oidc-cli/pkg/cmd/registration"
+	"github.com/wallanaq/oidc-cli/pkg/cmd/update"
 	"github.com/wallanaq/oidc-cli/pkg/cmd/version"
 )
 
@@ -46,11 +47,12 @@ func NewRootCommand() *cobra.Command {
 	})
 
 	rootCmd.AddCommand(
-		version.NewVersionCmd(),
-		discovery.NewDiscoveryCmd(),
-		registration.NewRegistrationCmd(),
 		auth.NewAuthCommand(),
 		config.NewConfigCmd(),
+		version.NewVersionCmd(),
+		update.NewUpdateCheckCmd(),
+		discovery.NewDiscoveryCmd(),
+		registration.NewRegistrationCmd(),
 	)
 
 	return rootCmd

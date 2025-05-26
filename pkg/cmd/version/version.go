@@ -4,11 +4,8 @@ import (
 	"runtime"
 
 	"github.com/spf13/cobra"
+	"github.com/wallanaq/oidc-cli/internal/version"
 )
-
-var version string
-
-const versionTemplate = "oidc-cli version %s (%s/%s)\n"
 
 func NewVersionCmd() *cobra.Command {
 
@@ -16,7 +13,7 @@ func NewVersionCmd() *cobra.Command {
 		Use:   "version",
 		Short: "Print the version of oidc-cli",
 		Run: func(cmd *cobra.Command, args []string) {
-			cmd.Printf(versionTemplate, version, runtime.GOOS, runtime.GOARCH)
+			cmd.Printf(version.Template, version.Current, runtime.GOOS, runtime.GOARCH)
 		},
 	}
 

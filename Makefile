@@ -7,7 +7,7 @@ BUILD_DIR   := $(BIN_DIR)/$(APP_NAME)
 GO_FILES    := $(shell find . -name '*.go' -type f)
 
 LDFLAGS :=
-LDFLAGS += -X $(MODULE_NAME)/pkg/cmd/version.version=$(VERSION)
+LDFLAGS += -X $(MODULE_NAME)/internal/version.Current=$(VERSION)
 
 all: build
 
