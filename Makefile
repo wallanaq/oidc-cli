@@ -8,7 +8,6 @@ GO_FILES    := $(shell find . -name '*.go' -type f)
 
 LDFLAGS :=
 LDFLAGS += -X $(MODULE_NAME)/pkg/cmd/version.version=$(VERSION)
-LDFLAGS += -X $(MODULE_NAME)/pkg/cmd/version.buildNumber=0
 
 all: build
 
